@@ -1,0 +1,11 @@
+<section class="main" *ngIf="todos.length>0">
+    <ul class="todoList">
+      <li *ngFor="let todo of todos">
+        <div class="view">
+          <input class="toggle" type="checkbox" (click)="toggleTodoComplete(todo)">
+          <label>{{todo.title}}: {{todo.complete}}</label>
+          <input class="delete" type="button" value="delete" (click)="deleteTodo(todo.id)">
+        </div>
+      </li>
+    </ul>
+  </section>
