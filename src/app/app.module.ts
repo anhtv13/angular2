@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { TodoListHeaderComponent } from './todo-list-header/todo-list-header.component';
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { TodoListFooterComponent } from './todo-list-footer/todo-list-footer.component';
+import { ApiService } from './api.service';
 
 
 @NgModule({
@@ -18,7 +19,7 @@ import { TodoListFooterComponent } from './todo-list-footer/todo-list-footer.com
   imports: [
     BrowserModule, FormsModule
   ],
-  providers: [],
+  providers: [ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
