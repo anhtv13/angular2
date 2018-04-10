@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Todo } from './todo';
+import { ApiService } from './api.service';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class TodoDataService {
 
   lastId: number = 0;
 
-  todos:Todo[] = [];
+  todos: Todo[] = [];
 
-  constructor() { }
+  constructor(private api: ApiService) { }
 
   // POST
-  addTodo(todo:Todo):number{
-    if(!todo.id){
+  addTodo(todo: Todo): number {
+    if (!todo.id) {
       todo.id = ++this.lastId;
     }
     this.todos.push(todo);
@@ -20,9 +22,9 @@ export class TodoDataService {
   }
 
   //DELETE
-  deleteTodoById(id:number):TodoDataService{
+  deleteTodoById(id: number): TodoDataService {
     //Return array without item to be deleted
-    this.todos = this.todos.filter(todo=>todo.id!==id);
+    this.todos = this.todos.filter(todo => todo.id !== id);
 
     // //Delete item from array
     // let todo = this.getTodoById(id);
@@ -33,9 +35,9 @@ export class TodoDataService {
   }
 
   //PUT
-  updateTodoById(id:number, values:Object):Todo{
+  updateTodoById(id: number, values: Object): Todo {
     let todo = this.getTodoById(id);
-    if(!todo){
+    if (!todo) {
       return null;
     }
     Object.assign(todo, values);
@@ -43,27 +45,53 @@ export class TodoDataService {
   }
 
   //GET By ID
-  getTodoById(id:number):Todo{
-    return this.todos.filter(m=>m.id===id).pop();
+  getTodoById(id: number): Todo {
+    return this.todos.filter(m => m.id === id).pop();
   }
 
   //GET All
-  getAllTodos():Todo[]{
+  getAllTodos(): Todo[] {
     return this.todos;
   }
 
   //GET Count
-  getCount(){
+  getCount() {
     debugger
     return this.todos.length;
   }
 
-  toogleTodoComplete(todo:Todo){
+  toggleTodoComplete(todo: Todo) {
     // let updatedTodo = this.updateTodoById(todo.id, {
     //   complete :!todo.complete
     // });
     // return updatedTodo;
     todo.complete = !todo.complete;
     return todo;
+  }
+
+
+  //REST API
+  addTodoAPI(todo:Todo):Observable<Todo>{
+    return this.api.createTodo(todo);
+  }
+  
+  deleteTodoByIdAPI(id: number):Observable<Todo>{
+    return this.api.deleteTodoById(id);
+  }
+
+  updateTodoAPI(todo:Todo):Observable<Todo>{
+    return this.api.updateTodo(todo);
+  }
+
+  getAllTodosAPI(): Observable<Todo[]> {  
+    return this.api.getAllTodos();    
+  }
+
+  getCountAPI(){
+    return this.getAllTodos().length;
+  }
+
+  toggleTodoCompleteAPI(todo:Todo):Observable<Todo>{
+    return this.api.updateTodo(todo);
   }
 }
