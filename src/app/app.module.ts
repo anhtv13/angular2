@@ -8,16 +8,21 @@ import { TodoListComponent } from './todo-list/todo-list.component';
 import { TodoListFooterComponent } from './todo-list-footer/todo-list-footer.component';
 import { ApiService } from './api.service';
 import { HttpModule } from '@angular/http';
+import {AppRoutingModule} from './app-routing.module';
+import { TodosComponent } from './todos/todos.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TodoListHeaderComponent,
     TodoListComponent,
-    TodoListFooterComponent
+    TodoListFooterComponent,
+    TodosComponent,
+    PageNotFoundComponent
   ],
   imports: [
-    BrowserModule, FormsModule, HttpModule
+    BrowserModule, FormsModule, HttpModule, AppRoutingModule
   ],
   providers: [ApiService],
   bootstrap: [AppComponent]

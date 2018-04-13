@@ -91,6 +91,10 @@ export class TodoDataService {
     return this.getAllTodos().length;
   }
 
+  getTodoByIdAPI(todoId:number):Observable<Todo>{
+    return this.api.getTodoById(todoId);
+  }
+
   toggleTodoCompleteAPI(todo:Todo):Observable<Todo>{
     return this.api.updateTodo(todo);
   }
